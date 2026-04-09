@@ -587,8 +587,11 @@ const indicatorsContainer = document.getElementById('carouselIndicators');
 
 let currentIndex = 0;
 let autoplayInterval;
-const slideWidth = 25;
 let slidePerView = 4;
+
+function getSlideWidth() {
+    return 100 / slidePerView;
+}
 
 function createIndicators() {
     const indicatorCount = Math.ceil(totalOriginal / slidePerView);
@@ -601,8 +604,11 @@ function createIndicators() {
 }
 
 function updateCarousel() {
-    const offset = -currentIndex * slideWidth;
+    const sw = getSlideWidth();
+    const offset = -currentIndex * sw;
     carouselTrack.style.transform = `translateX(${offset}%)`;
+    // Update slide widths
+    slides.forEach(s => { s.style.minWidth = sw + '%'; });
     updateIndicators();
 }
 
@@ -675,6 +681,14 @@ function updateSlidePerView() {
     } else {
         slidePerView = 4;
     }
+    // Rebuild indicators for new slidePerView
+    if (indicatorsContainer) {
+        indicatorsContainer.innerHTML = '';
+        createIndicators();
+    }
+    // Reset index if out of bounds
+    const maxIndex = Math.max(0, slides.length - slidePerView);
+    if (currentIndex > maxIndex) currentIndex = 0;
     updateCarousel();
 }
 

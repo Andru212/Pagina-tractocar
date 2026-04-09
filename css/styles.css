@@ -38,11 +38,25 @@
 /* ===========================
    HERO PLANETARIO INTERACTIVO
    =========================== */
+.planet-container {
+    position: relative;
+    width: 90vw;
+    max-width: 700px;
+    height: 90vw;
+    max-height: 700px;
+    min-width: 280px;
+    min-height: 280px;
+    margin: 0 auto;
+}
+
 .hero-planet {
     min-height: 100vh;
     background: linear-gradient(135deg, #003da5 0%, #0052cc 100%);
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px 20px;
     /* PLANETA/ÁTOMO 3D MEJORADO Y RESPONSIVE */
     #planetCanvas {
         display: block;
@@ -1566,6 +1580,20 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .ubicacion-mapa iframe {
+        height: 350px;
+    }
+
+    .nosotros-content {
+        flex-direction: column;
+    }
+
+    .nosotros-text,
+    .nosotros-img {
+        min-width: unset;
+        width: 100%;
+    }
+
     .carousel-slide {
         min-width: 33.333%;
     }
@@ -1609,14 +1637,17 @@ body {
     .servicios h2,
     .galeria h2,
     .ventajas h2,
+    .nosotros h2,
+    .clientes h2,
     .testimonios h2,
     .ubicacion-info h2,
     .contacto h2 {
-        font-size: 32px;
+        font-size: 28px;
+        margin-bottom: 40px;
     }
 
     .navbar-brand h1 {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .hero {
@@ -1624,13 +1655,44 @@ body {
         min-height: auto;
     }
 
+    .hero-planet {
+        min-height: auto;
+        padding: 80px 10px 20px;
+    }
+
+    .planet-container {
+        width: 80vw;
+        height: 80vw;
+        max-width: 400px;
+        max-height: 400px;
+        min-width: 260px;
+        min-height: 260px;
+    }
+
     .servicios,
     .galeria,
     .ventajas,
+    .nosotros,
+    .clientes,
     .testimonios,
     .ubicacion,
     .contacto {
-        padding: 60px 20px;
+        padding: 60px 15px;
+    }
+
+    .servicios-grid,
+    .ventajas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .galeria-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .galeria-item {
+        height: 220px;
     }
 
     .carousel-slide {
@@ -1638,9 +1700,13 @@ body {
     }
 
     .carousel-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .carousel-container {
+        gap: 10px;
     }
 
     .hero-buttons {
@@ -1650,15 +1716,94 @@ body {
     .btn-lg {
         width: 100%;
     }
+
+    .ventaja-card,
+    .servicio-card {
+        padding: 25px 20px;
+    }
+
+    .ventaja-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+
+    .servicio-card i {
+        font-size: 40px;
+    }
+
+    .testimonio-card {
+        padding: 25px 20px;
+    }
+
+    .testimonios-carousel {
+        gap: 10px;
+    }
+
+    .ubicacion-mapa iframe {
+        height: 300px;
+    }
+
+    .nosotros-text h3 {
+        font-size: 22px;
+    }
+
+    .nosotros-text p {
+        font-size: 16px;
+    }
+
+    .nosotros-img img {
+        max-width: 100%;
+    }
+
+    .galeria-modal-content {
+        padding: 25px 15px;
+        width: 95vw;
+    }
+
+    #modalImg {
+        max-height: 250px;
+    }
+
+    .btn-cotizar-modal {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
 }
 
 @media (max-width: 480px) {
     .hero-title {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     .hero-subtitle {
         font-size: 14px;
+    }
+
+    .navbar-brand h1 {
+        font-size: 14px;
+    }
+
+    .navbar-brand img {
+        height: 32px;
+    }
+
+    .hero-planet {
+        padding: 70px 5px 10px;
+    }
+
+    .planet-container {
+        width: 95vw;
+        height: 95vw;
+        max-width: 340px;
+        max-height: 340px;
+        min-width: 220px;
+        min-height: 220px;
     }
 
     .servicios-grid,
@@ -1667,8 +1812,8 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .clientes-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .galeria-item {
+        height: 200px;
     }
 
     .footer-content {
@@ -1677,6 +1822,12 @@ body {
 
     .carousel-slide {
         min-width: 100%;
+    }
+
+    .carousel-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
     }
 
     .carousel-indicators {
@@ -1699,6 +1850,98 @@ body {
 
     .stat-number {
         font-size: 36px;
+    }
+
+    .servicios h2,
+    .galeria h2,
+    .ventajas h2,
+    .nosotros h2,
+    .clientes h2,
+    .testimonios h2,
+    .ubicacion-info h2,
+    .contacto h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+    .ventaja-card,
+    .servicio-card {
+        padding: 20px 15px;
+    }
+
+    .servicio-card i {
+        font-size: 36px;
+    }
+
+    .servicio-card h3,
+    .ventaja-card h3 {
+        font-size: 18px;
+    }
+
+    .servicio-card p,
+    .ventaja-card p {
+        font-size: 14px;
+    }
+
+    .testimonio-card {
+        padding: 20px 15px;
+    }
+
+    .testimonio-text {
+        font-size: 14px;
+    }
+
+    .ubicacion-mapa iframe {
+        height: 250px;
+    }
+
+    .info-item {
+        gap: 12px;
+    }
+
+    .info-item i {
+        font-size: 22px;
+    }
+
+    .contacto-form .btn {
+        font-size: 16px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .galeria-modal-content {
+        padding: 20px 10px;
+        border-radius: 12px;
+    }
+
+    .galeria-modal-close {
+        top: 10px;
+        right: 15px;
+        font-size: 28px;
+    }
+
+    #modalImg {
+        max-height: 200px;
+        margin-bottom: 15px;
+    }
+
+    .btn-cotizar-modal {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    .social-links a {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
     }
 }
 
