@@ -1,11 +1,15 @@
 // ===========================
 
 // PLANETA/ÁTOMO 3D CON HOTSPOTS GIRATORIOS Y PROFUNDIDAD
-// Responsive: calcular tamaño dinámico
+// Responsive: calcular tamaño basado en el contenedor real
 function getPlanetSize() {
+    const container = document.querySelector('.planet-container');
+    if (container) {
+        const rect = container.getBoundingClientRect();
+        return Math.min(rect.width, rect.height);
+    }
     const w = window.innerWidth;
-    const h = window.innerHeight;
-    const size = Math.max(320, Math.min(0.9 * Math.min(w, h), 700));
+    const size = Math.max(250, Math.min(0.85 * w, 700));
     return size;
 }
 
@@ -17,8 +21,9 @@ const mainHotspots = [
     { label: '¿Por qué elegirnos?', section: '#ventajas', main: true, phi: 2.1, theta: 4.8 },
     { label: 'Contacto', section: '#contacto', main: true, phi: 1.7, theta: 6.2 }
 ];
-// Secundarios distribuidos con golden spiral
-const secondaryHotspots = Array.from({length: 44}, (_,i) => ({ label: '', section: '', main: false }));
+// Secundarios distribuidos con golden spiral — menos en móvil
+const secondaryCount = window.innerWidth <= 480 ? 15 : (window.innerWidth <= 768 ? 25 : 44);
+const secondaryHotspots = Array.from({length: secondaryCount}, (_,i) => ({ label: '', section: '', main: false }));
 const planetHotspotsData = [...mainHotspots, ...secondaryHotspots];
 const planetCanvas = document.getElementById('planetCanvas');
 const ctxPlanet = planetCanvas ? planetCanvas.getContext('2d') : null;
@@ -37,6 +42,8 @@ function resizePlanet() {
     if (planetCanvas) {
         planetCanvas.width = planetSize;
         planetCanvas.height = planetSize;
+        planetCanvas.style.width = planetSize + 'px';
+        planetCanvas.style.height = planetSize + 'px';
     }
     if (planetHotspotsDiv) {
         planetHotspotsDiv.style.width = planetSize + 'px';
@@ -44,6 +51,8 @@ function resizePlanet() {
     }
 }
 window.addEventListener('resize', resizePlanet);
+// Delay initial resize to let CSS layout settle
+setTimeout(resizePlanet, 50);
 resizePlanet();
 
 // Distribuir puntos en la esfera
@@ -212,7 +221,10 @@ function updateHotspots3D() {
 }
 
 function animatePlanet3D() {
-    planetAngleY += 0.008;
+    const t = performance.now() * 0.001;
+    // Rotación continua en Y + oscilación suave en X para que todos los hotspots sean visibles
+    planetAngleY += 0.006;
+    planetAngleX = 0.4 * Math.sin(t * 0.15); // oscila arriba/abajo lentamente
     drawPlanet3D();
     updateHotspots3D();
     requestAnimationFrame(animatePlanet3D);
@@ -221,27 +233,29 @@ if (planetCanvas) animatePlanet3D();
 
 // Interacción: girar con mouse/touch
 if (planetCanvas) {
+    // Mouse drag (desktop only)
     planetCanvas.addEventListener('mousedown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; });
     window.addEventListener('mousemove', e => {
         if (dragging) {
             planetAngleY += (e.clientX - lastX) * 0.012;
             planetAngleX += (e.clientY - lastY) * 0.012;
-            // planetAngleX sin límite, rotación infinita
             lastX = e.clientX; lastY = e.clientY;
         }
     });
     window.addEventListener('mouseup', () => { dragging = false; });
-    // Touch
-    planetCanvas.addEventListener('touchstart', e => { dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; });
-    window.addEventListener('touchmove', e => {
-        if (dragging && e.touches.length === 1) {
-            planetAngleY += (e.touches[0].clientX - lastX) * 0.012;
-            planetAngleX += (e.touches[0].clientY - lastY) * 0.012;
-            // planetAngleX sin límite, rotación infinita
-            lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
-        }
-    });
-    window.addEventListener('touchend', () => { dragging = false; });
+    // Touch: solo permitir drag si es un gesto horizontal claro, sino dejar scroll
+    // En móvil deshabilitamos el drag del planeta para no bloquear el scroll
+    if (window.innerWidth > 768) {
+        planetCanvas.addEventListener('touchstart', e => { dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }, { passive: true });
+        window.addEventListener('touchmove', e => {
+            if (dragging && e.touches.length === 1) {
+                planetAngleY += (e.touches[0].clientX - lastX) * 0.012;
+                planetAngleX += (e.touches[0].clientY - lastY) * 0.012;
+                lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+        window.addEventListener('touchend', () => { dragging = false; }, { passive: true });
+    }
 }
 // ===========================
 // SIMULADOR INTERACTIVO 3D
@@ -798,3 +812,26 @@ window.addEventListener('scroll', () => {
 });
 
 console.log('🚀 Script cargado correctamente - Versión Premium');
+
+// ===========================
+// BOTÓN FLOTANTE VOLVER A NEURONA (móvil)
+// ===========================
+const btnBackPlanet = document.getElementById('btnBackPlanet');
+const heroSection = document.getElementById('inicio');
+
+if (btnBackPlanet && heroSection) {
+    // Mostrar/ocultar botón según scroll
+    window.addEventListener('scroll', () => {
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        if (heroBottom < 0) {
+            btnBackPlanet.classList.add('visible');
+        } else {
+            btnBackPlanet.classList.remove('visible');
+        }
+    }, { passive: true });
+
+    // Al hacer clic, volver suavemente al inicio
+    btnBackPlanet.addEventListener('click', () => {
+        heroSection.scrollIntoView({ behavior: 'smooth' });
+    });
+}
