@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRACTOCAR - Carrocerías Pesadas Premium | Metalmecánica Industrial</title>
-    <meta name="description" content="TRACTOCAR - Expertos en carrocerías pesadas de metalmecánica. Niñeras, planchas, patinetas y estructuras personalizadas para tu industria.">
+    <meta id="metaDescription" name="description" content="TRACTOCAR - Expertos en carrocerías pesadas de metalmecánica. Niñeras, planchas, patinetas y estructuras personalizadas para tu industria.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=20260409-planet-1">
+    <link rel="stylesheet" href="css/styles.css?v=20260409-clean-1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -19,20 +19,26 @@
                 <img src="images/Logo TT.png" alt="TRACTOCAR" class="logo">
                 <h1>TRACTOCAR TRUCK S.A.S</h1>
             </div>
-            <button class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#inicio" class="nav-link">Inicio</a></li>
-                <li><a href="#servicios" class="nav-link">Servicios</a></li>
-                <li><a href="#galeria" class="nav-link">Galería</a></li>
-                <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
-                <li><a href="#clientes" class="nav-link">Clientes</a></li>
-                <li><a href="#ubicacion" class="nav-link">Ubicación</a></li>
-                <li><a href="#contacto" class="nav-link">Contacto</a></li>
-            </ul>
+            <div class="navbar-controls">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                    <li><a href="#servicios" class="nav-link">Servicios</a></li>
+                    <li><a href="#galeria" class="nav-link">Galería</a></li>
+                    <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+                    <li><a href="#clientes" class="nav-link">Clientes</a></li>
+                    <li><a href="#ubicacion" class="nav-link">Ubicación</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+                <div class="language-switch" id="languageSwitch" aria-label="Language switcher">
+                    <button type="button" class="language-option active" data-lang="es">ES</button>
+                    <button type="button" class="language-option" data-lang="en">EN</button>
+                </div>
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -199,7 +205,7 @@
                 <div class="galeria-modal-info">
                     <h3 id="modalTitle"></h3>
                     <p id="modalDesc"></p>
-                    <a href="#contacto" class="btn btn-primary btn-cotizar-modal"><i class="fas fa-paper-plane"></i> Solicitar Cotización</a>
+                    <a href="#contacto" class="btn btn-primary btn-cotizar-modal" id="galleryQuoteButton"><i class="fas fa-paper-plane"></i> Solicitar Cotización</a>
                 </div>
             </div>
         </div>
@@ -405,21 +411,21 @@
             <p>¿Tienes un proyecto en mente? Cuéntanos y te proporcionaremos una cotización personalizada</p>
             <form class="contacto-form" id="contactoForm">
                 <div class="form-group">
-                    <input type="text" placeholder="Tu Nombre" required>
+                    <input type="text" id="contactoNombre" name="nombre" placeholder="Tu Nombre" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" placeholder="Tu Email" required>
+                    <input type="email" id="contactoEmail" name="email" placeholder="Tu Email" required>
                 </div>
                 <div class="form-group">
-                    <input type="tel" placeholder="Tu Teléfono" required>
+                    <input type="tel" id="contactoTelefono" name="telefono" placeholder="Tu Teléfono" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Empresa">
+                    <input type="text" id="contactoEmpresa" name="empresa" placeholder="Empresa">
                 </div>
                 <div class="form-group">
-                    <textarea id="contactoMensaje" placeholder="Describe tu proyecto" rows="5" required></textarea>
+                    <textarea id="contactoMensaje" name="mensaje" placeholder="Describe tu proyecto" rows="5" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                <button type="submit" class="btn btn-primary" id="contactSubmitButton">Enviar Mensaje</button>
             </form>
         </div>
     </section>
@@ -457,6 +463,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260409-planet-1"></script>
+    <script src="js/main.js?v=20260409-clean-1"></script>
 </body>
 </html>

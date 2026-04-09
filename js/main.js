@@ -6,6 +6,203 @@ function isMobilePlanetLayout() {
     return window.innerWidth <= 768;
 }
 
+const translations = {
+    es: {
+        metaTitle: 'TRACTOCAR - Carrocerias Pesadas Premium | Metalmecanica Industrial',
+        metaDescription: 'TRACTOCAR - Expertos en carrocerias pesadas de metalmecanica. Nineras, planchas, patinetas y estructuras personalizadas para tu industria.',
+        nav: ['Inicio', 'Servicios', 'Galeria', 'Nosotros', 'Clientes', 'Ubicacion', 'Contacto'],
+        planetKicker: 'Explora TRACTOCAR',
+        planetCanvasLabel: 'Planeta 3D interactivo',
+        hotspots: ['Servicios', 'Galeria', 'Nosotros', 'Por que elegirnos', 'Contacto'],
+        menuAria: 'Abrir menu',
+        switchAria: 'Selector de idioma',
+        advantages: {
+            title: 'Por que elegirnos?',
+            cards: [
+                ['Calidad Garantizada', 'Cada proyecto cumple con estandares internacionales de manufactura y calidad.', 'ISO Certificado'],
+                ['Entrega Rapida', 'Procesos optimizados que garantizan entregas en tiempo record sin comprometer calidad.', '35+ Anos'],
+                ['Equipo Especializado', 'Profesionales con experiencia en los mas complejos proyectos metalmecanicos.', 'Expertos'],
+                ['Personalizacion Total', 'Adaptamos nuestros servicios a tus especificaciones y necesidades unicas.', '100% Flexible']
+            ]
+        },
+        services: {
+            title: 'Nuestros Servicios',
+            cards: [
+                ['Mantenimiento', 'Fabricacion de nineras de alta capacidad para transporte de carga pesada con acabados de precision.'],
+                ['Planchas', 'Planchas metalicas estructurales de diferentes dimensiones y especificaciones segun tus necesidades.'],
+                ['Patinetas', 'Patinetas para transporte especializado con sistemas de carga y descarga eficientes.'],
+                ['Personalizacion', 'Disenos personalizados segun tus especificaciones y requerimientos tecnicos particulares.'],
+                ['Montaje Integral', 'Montaje completo de sistemas integrales para proyectos de ingenieria metalmecanica.'],
+                ['Alargue de chasis', 'Montaje completo de sistemas integrales para proyectos de ingenieria metalmecanica.']
+            ]
+        },
+        gallery: {
+            title: 'Trabajos Realizados',
+            button: 'Solicitar Cotizacion',
+            ctaPrefix: 'Quiero saber mas sobre:',
+            items: [
+                ['Ninera de Transporte', 'Proyecto especial para cliente industrial', 'Trabajo 1'],
+                ['Sistema de Planchas', 'Estructura metalmecanica compleja', 'Trabajo 2'],
+                ['Patineta Especializada', 'Diseno personalizado para transporte', 'Trabajo 3'],
+                ['Estructura Pesada', 'Proyecto de ingenieria especializada', 'Trabajo 4'],
+                ['Carroceria Completa', 'Montaje de sistema integral', 'Trabajo 5'],
+                ['Acabado Profesional', 'Detalle de precision en manufactura', 'Trabajo 6']
+            ]
+        },
+        about: {
+            title: 'Sobre Nosotros',
+            heading: 'Pasion, Innovacion y Experiencia',
+            body: 'TRACTOCAR TRUCK S.A.S es una empresa lider en la fabricacion de carrocerias pesadas y soluciones metalmecanicas industriales. Con mas de 20 anos de experiencia, nuestro equipo combina tecnologia de punta, talento humano y pasion por la excelencia para entregar proyectos unicos y personalizados.',
+            bullets: [
+                'Compromiso con la calidad y la seguridad',
+                'Innovacion constante en procesos y diseno',
+                'Atencion personalizada y asesoria tecnica',
+                'Equipo multidisciplinario de expertos'
+            ],
+            imageAlt: 'Equipo Tractocar'
+        },
+        clients: {
+            title: 'Nuestros Clientes',
+            intro: 'Trabajamos con las principales empresas del sector industrial',
+            logoAlt: ['Transportes Vigia', 'Truck Logic', 'Atica', 'Kendworth de la montana', 'Country Motors', 'Colwagen', 'Jorge Cortez']
+        },
+        testimonials: {
+            title: 'Lo que Dicen Nuestros Clientes',
+            items: [
+                ['TRACTOCAR supero todas nuestras expectativas. La calidad de sus carrocerias es inmejorable y sus tiempos de entrega son impecables.', 'Juan Carlos Rodriguez', 'Director General, Transportes ABC'],
+                ['Trabajar con TRACTOCAR ha sido la mejor decision. Su profesionalismo y dedicacion a cada proyecto es extraordinario.', 'Maria Lopez Garcia', 'Gerente de Operaciones, Industrial Metals Co.'],
+                ['Excelente servicio, productos de alta calidad y un equipo que realmente se preocupa por hacer bien las cosas. Altamente recomendado.', 'Carlos Mendoza', 'Propietario, MendozaTruck Solutions']
+            ]
+        },
+        location: {
+            title: 'Ubicacion',
+            headings: ['Direccion', 'Telefono', 'Email', 'Horario'],
+            details: [
+                'Cra. 6 # 13A-110<br>Ceuta, Mosquera<br>Colombia',
+                '+57 317 654 7173<br>+57 318 349 3441',
+                'Tractocartrucksas@hotmail.com<br>Tractocarjlm@hotmail.com',
+                'Lunes - Viernes: 8:00 - 18:00<br>Sabado: 8:00 - 13:00<br>Domingo: Cerrado'
+            ]
+        },
+        contact: {
+            title: 'Ponte en Contacto',
+            intro: 'Tienes un proyecto en mente? Cuentanos y te proporcionaremos una cotizacion personalizada',
+            placeholders: ['Tu Nombre', 'Tu Email', 'Tu Telefono', 'Empresa', 'Describe tu proyecto'],
+            button: 'Enviar Mensaje',
+            required: 'Por favor completa todos los campos requeridos',
+            success: 'Gracias. Tu mensaje ha sido enviado. Nos pondremos en contacto pronto.'
+        },
+        footer: {
+            title: 'TRACTOCAR',
+            body: 'Especialistas en carrocerias pesadas de metalmecanica desde hace mas de 20 anos.',
+            quickLinksTitle: 'Enlaces Rapidos',
+            quickLinks: ['Inicio', 'Servicios', 'Galeria', 'Contacto'],
+            socialTitle: 'Siguenos',
+            bottom: '© 2024 TRACTOCAR. Todos los derechos reservados. | Politica de Privacidad | Terminos de Servicio'
+        },
+        galleryInterest: 'Estoy interesado en el producto:',
+        formLogLabel: 'Datos del formulario:'
+    },
+    en: {
+        metaTitle: 'TRACTOCAR - Premium Heavy Bodyworks | Industrial Metalworking',
+        metaDescription: 'TRACTOCAR - Experts in heavy-duty metalworking bodyworks. Car carriers, flatbeds, skate trailers, and custom industrial structures.',
+        nav: ['Home', 'Services', 'Gallery', 'About', 'Clients', 'Location', 'Contact'],
+        planetKicker: 'Explore TRACTOCAR',
+        planetCanvasLabel: 'Interactive 3D planet',
+        hotspots: ['Services', 'Gallery', 'About', 'Why us', 'Contact'],
+        menuAria: 'Open menu',
+        switchAria: 'Language switcher',
+        advantages: {
+            title: 'Why Choose Us?',
+            cards: [
+                ['Guaranteed Quality', 'Every project meets international manufacturing and quality standards.', 'ISO Certified'],
+                ['Fast Delivery', 'Optimized processes ensure fast delivery times without compromising quality.', '35+ Years'],
+                ['Specialized Team', 'Professionals experienced in the most demanding metalworking projects.', 'Experts'],
+                ['Full Customization', 'We adapt our services to your exact specifications and unique needs.', '100% Flexible']
+            ]
+        },
+        services: {
+            title: 'Our Services',
+            cards: [
+                ['Maintenance', 'High-capacity car carrier fabrication for heavy cargo transport with precision finishes.'],
+                ['Flatbeds', 'Structural metal flatbeds in different dimensions and specifications according to your needs.'],
+                ['Skate Trailers', 'Specialized transport skate trailers with efficient loading and unloading systems.'],
+                ['Customization', 'Custom designs based on your specifications and technical requirements.'],
+                ['Full Assembly', 'Complete assembly of integrated systems for metalworking engineering projects.'],
+                ['Chassis Extension', 'Complete assembly of integrated systems for metalworking engineering projects.']
+            ]
+        },
+        gallery: {
+            title: 'Completed Work',
+            button: 'Request a Quote',
+            ctaPrefix: 'I want to know more about:',
+            items: [
+                ['Transport Car Carrier', 'Special project for an industrial client', 'Work 1'],
+                ['Flatbed System', 'Complex metalworking structure', 'Work 2'],
+                ['Specialized Skate Trailer', 'Custom transport design', 'Work 3'],
+                ['Heavy Structure', 'Specialized engineering project', 'Work 4'],
+                ['Complete Bodywork', 'Integrated system assembly', 'Work 5'],
+                ['Professional Finish', 'Precision manufacturing detail', 'Work 6']
+            ]
+        },
+        about: {
+            title: 'About Us',
+            heading: 'Passion, Innovation and Experience',
+            body: 'TRACTOCAR TRUCK S.A.S is a leading company in heavy bodywork manufacturing and industrial metalworking solutions. With more than 20 years of experience, our team combines advanced technology, skilled people, and a passion for excellence to deliver unique and fully customized projects.',
+            bullets: [
+                'Commitment to quality and safety',
+                'Constant innovation in processes and design',
+                'Personalized support and technical guidance',
+                'Multidisciplinary team of experts'
+            ],
+            imageAlt: 'Tractocar team'
+        },
+        clients: {
+            title: 'Our Clients',
+            intro: 'We work with leading companies in the industrial sector',
+            logoAlt: ['Transportes Vigia', 'Truck Logic', 'Atica', 'Kendworth de la Montana', 'Country Motors', 'Colwagen', 'Jorge Cortez']
+        },
+        testimonials: {
+            title: 'What Our Clients Say',
+            items: [
+                ['TRACTOCAR exceeded all our expectations. The quality of their bodyworks is unmatched and their delivery times are flawless.', 'Juan Carlos Rodriguez', 'General Director, Transportes ABC'],
+                ['Working with TRACTOCAR has been our best decision. Their professionalism and dedication to every project is outstanding.', 'Maria Lopez Garcia', 'Operations Manager, Industrial Metals Co.'],
+                ['Excellent service, high-quality products, and a team that truly cares about doing things right. Highly recommended.', 'Carlos Mendoza', 'Owner, MendozaTruck Solutions']
+            ]
+        },
+        location: {
+            title: 'Location',
+            headings: ['Address', 'Phone', 'Email', 'Business Hours'],
+            details: [
+                'Cra. 6 # 13A-110<br>Ceuta, Mosquera<br>Colombia',
+                '+57 317 654 7173<br>+57 318 349 3441',
+                'Tractocartrucksas@hotmail.com<br>Tractocarjlm@hotmail.com',
+                'Monday - Friday: 8:00 - 18:00<br>Saturday: 8:00 - 13:00<br>Sunday: Closed'
+            ]
+        },
+        contact: {
+            title: 'Get in Touch',
+            intro: 'Do you have a project in mind? Tell us about it and we will provide a tailored quote.',
+            placeholders: ['Your Name', 'Your Email', 'Your Phone', 'Company', 'Describe your project'],
+            button: 'Send Message',
+            required: 'Please complete all required fields',
+            success: 'Thank you. Your message has been sent. We will contact you soon.'
+        },
+        footer: {
+            title: 'TRACTOCAR',
+            body: 'Specialists in heavy metalworking bodyworks for more than 20 years.',
+            quickLinksTitle: 'Quick Links',
+            quickLinks: ['Home', 'Services', 'Gallery', 'Contact'],
+            socialTitle: 'Follow Us',
+            bottom: '© 2024 TRACTOCAR. All rights reserved. | Privacy Policy | Terms of Service'
+        },
+        galleryInterest: 'I am interested in the product:',
+        formLogLabel: 'Form data:'
+    }
+};
+
+let currentLanguage = localStorage.getItem('tractocar-language') || 'es';
+
 function getPlanetSize() {
     const container = document.querySelector('.planet-container');
     if (container) {
@@ -19,11 +216,11 @@ function getPlanetSize() {
 
 // Hotspots principales bien separados (usando ángulos fijos para máxima separación)
 const mainHotspots = [
-    { label: 'Servicios', section: '#servicios', main: true, phi: 1.1, theta: 0.2 },
-    { label: 'Galería', section: '#galeria', main: true, phi: 2.1, theta: 2.2 },
-    { label: 'Nosotros', section: '#nosotros', main: true, phi: 1.1, theta: 4.2 },
-    { label: '¿Por qué elegirnos?', section: '#ventajas', main: true, phi: 2.1, theta: 4.8 },
-    { label: 'Contacto', section: '#contacto', main: true, phi: 1.7, theta: 6.2 }
+    { label: translations[currentLanguage].hotspots[0], section: '#servicios', main: true, phi: 1.1, theta: 0.2 },
+    { label: translations[currentLanguage].hotspots[1], section: '#galeria', main: true, phi: 2.1, theta: 2.2 },
+    { label: translations[currentLanguage].hotspots[2], section: '#nosotros', main: true, phi: 1.1, theta: 4.2 },
+    { label: translations[currentLanguage].hotspots[3], section: '#ventajas', main: true, phi: 2.1, theta: 4.8 },
+    { label: translations[currentLanguage].hotspots[4], section: '#contacto', main: true, phi: 1.7, theta: 6.2 }
 ];
 // Secundarios distribuidos con golden spiral — menos en móvil
 const secondaryCount = window.innerWidth <= 480 ? 15 : (window.innerWidth <= 768 ? 25 : 44);
@@ -187,6 +384,7 @@ function drawPlanet3D() {
 function updateHotspots3D() {
     if (!planetHotspotsDiv) return;
     const isMobile = isMobilePlanetLayout();
+    const hotspotLabels = translations[currentLanguage].hotspots;
     // Crear los hotspots si no existen
     if (planetHotspotsDiv.childElementCount !== planetHotspotsData.length) {
         planetHotspotsDiv.innerHTML = '';
@@ -195,7 +393,7 @@ function updateHotspots3D() {
             el.className = 'planet-hotspot-3d';
             if (h.main) el.setAttribute('data-main','true');
             // Solo mostrar texto si es main
-            el.textContent = h.main ? h.label : '';
+            el.textContent = h.main ? (hotspotLabels[i] || h.label) : '';
             if (h.section) {
                 el.addEventListener('click', () => {
                     const sec = document.querySelector(h.section);
@@ -221,8 +419,9 @@ function updateHotspots3D() {
             el.style.left = px + 'px';
             el.style.top = py + 'px';
             if (h.main) {
+                const activeLabel = hotspotLabels[i] || h.label;
                 if (isMobile) {
-                    el.textContent = h.label;
+                    el.textContent = activeLabel;
                     el.style.width = 'auto';
                     el.style.height = 'auto';
                     el.style.padding = '7px 12px';
@@ -236,7 +435,7 @@ function updateHotspots3D() {
                     el.style.opacity = z > -0.12 ? '1' : '0.18';
                     el.style.transition = 'background 0.3s, box-shadow 0.3s, opacity 0.3s';
                 } else {
-                    el.textContent = h.label;
+                    el.textContent = activeLabel;
                     el.style.minWidth = '70px';
                     el.style.minHeight = '36px';
                     el.style.width = 'auto';
@@ -352,178 +551,6 @@ if (planetCanvas) {
     }, { passive: true });
 }
 // ===========================
-// SIMULADOR INTERACTIVO 3D
-// ===========================
-
-
-// Simulador SVG editable
-const simulador3d = document.getElementById('simulador3d');
-let svgEl = null;
-
-const carroceriaSVGs = {
-        'Niñera': (color) => `
-            <svg width="320" height="180" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="160" cy="170" rx="90" ry="12" fill="#222" opacity="0.18"/>
-                <!-- Cabina -->
-                <rect x="50" y="90" width="40" height="35" rx="8" fill="#bbb" stroke="#003da5" stroke-width="3"/>
-                <rect x="60" y="100" width="20" height="15" rx="4" fill="#fff" opacity="0.7"/>
-                <!-- Plataforma -->
-                <rect x="90" y="80" width="170" height="30" rx="10" fill="${color}" stroke="#003da5" stroke-width="4"/>
-                <!-- Barandas -->
-                <rect x="90" y="70" width="170" height="10" rx="4" fill="#eaf0fa" stroke="#003da5" stroke-width="2"/>
-                <rect x="90" y="110" width="170" height="8" rx="3" fill="#eaf0fa" stroke="#003da5" stroke-width="2"/>
-                <!-- Ejes -->
-                <circle cx="110" cy="135" r="13" fill="#444" stroke="#222" stroke-width="4"/>
-                <circle cx="230" cy="135" r="13" fill="#444" stroke="#222" stroke-width="4"/>
-            </svg>
-        `,
-        'Planchón': (color) => `
-            <svg width="320" height="180" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="160" cy="170" rx="90" ry="12" fill="#222" opacity="0.18"/>
-                <!-- Plataforma larga -->
-                <rect x="40" y="100" width="240" height="22" rx="8" fill="${color}" stroke="#003da5" stroke-width="4"/>
-                <!-- Rampas -->
-                <rect x="40" y="122" width="30" height="8" rx="2" fill="#bbb" stroke="#003da5" stroke-width="2"/>
-                <rect x="250" y="122" width="30" height="8" rx="2" fill="#bbb" stroke="#003da5" stroke-width="2"/>
-                <!-- Ejes dobles -->
-                <circle cx="80" cy="145" r="10" fill="#444" stroke="#222" stroke-width="3"/>
-                <circle cx="110" cy="145" r="10" fill="#444" stroke="#222" stroke-width="3"/>
-                <circle cx="210" cy="145" r="10" fill="#444" stroke="#222" stroke-width="3"/>
-                <circle cx="240" cy="145" r="10" fill="#444" stroke="#222" stroke-width="3"/>
-            </svg>
-        `,
-        'Patineta': (color) => `
-            <svg width="320" height="180" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="160" cy="170" rx="90" ry="12" fill="#222" opacity="0.18"/>
-                <!-- Plataforma baja -->
-                <rect x="70" y="120" width="180" height="14" rx="6" fill="${color}" stroke="#003da5" stroke-width="4"/>
-                <!-- Ejes -->
-                <circle cx="100" cy="140" r="9" fill="#444" stroke="#222" stroke-width="3"/>
-                <circle cx="220" cy="140" r="9" fill="#444" stroke="#222" stroke-width="3"/>
-            </svg>
-        `,
-        'Especial': (color) => `
-            <svg width="320" height="180" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="160" cy="170" rx="90" ry="12" fill="#222" opacity="0.18"/>
-                <!-- Plataforma especial -->
-                <rect x="100" y="90" width="120" height="30" rx="12" fill="${color}" stroke="#003da5" stroke-width="4"/>
-                <!-- Detalle especial -->
-                <rect x="130" y="80" width="60" height="10" rx="4" fill="#eaf0fa" stroke="#003da5" stroke-width="2"/>
-                <!-- Ejes -->
-                <circle cx="120" cy="130" r="11" fill="#444" stroke="#222" stroke-width="3"/>
-                <circle cx="200" cy="130" r="11" fill="#444" stroke="#222" stroke-width="3"/>
-            </svg>
-        `,
-        'Niñera3D': (color) => `
-            <svg width="320" height="180" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="160" cy="170" rx="90" ry="12" fill="#222" opacity="0.18"/>
-                <!-- Cabina 3D -->
-                <rect x="55" y="95" width="38" height="32" rx="7" fill="#bbb" stroke="#f39200" stroke-width="3"/>
-                <rect x="65" y="105" width="18" height="12" rx="3" fill="#fff" opacity="0.7"/>
-                <!-- Plataforma 3D -->
-                <rect x="93" y="85" width="165" height="28" rx="9" fill="${color}" stroke="#f39200" stroke-width="4"/>
-                <!-- Barandas -->
-                <rect x="93" y="75" width="165" height="8" rx="3" fill="#fff" opacity="0.5" stroke="#f39200" stroke-width="2"/>
-                <rect x="93" y="113" width="165" height="7" rx="2" fill="#fff" opacity="0.5" stroke="#f39200" stroke-width="2"/>
-                <!-- Ejes -->
-                <circle cx="115" cy="135" r="12" fill="#888" stroke="#f39200" stroke-width="4"/>
-                <circle cx="230" cy="135" r="12" fill="#888" stroke="#f39200" stroke-width="4"/>
-            </svg>
-        `,
-        'Remolque3D': (color) => `
-            <svg width="320" height="180" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="160" cy="170" rx="90" ry="12" fill="#222" opacity="0.18"/>
-                <!-- Plataforma remolque -->
-                <rect x="45" y="110" width="230" height="18" rx="7" fill="${color}" stroke="#f39200" stroke-width="4"/>
-                <!-- Rampas -->
-                <rect x="45" y="128" width="30" height="7" rx="2" fill="#bbb" stroke="#f39200" stroke-width="2"/>
-                <rect x="245" y="128" width="30" height="7" rx="2" fill="#bbb" stroke="#f39200" stroke-width="2"/>
-                <!-- Ejes dobles -->
-                <circle cx="80" cy="145" r="10" fill="#888" stroke="#f39200" stroke-width="3"/>
-                <circle cx="110" cy="145" r="10" fill="#888" stroke="#f39200" stroke-width="3"/>
-                <circle cx="210" cy="145" r="10" fill="#888" stroke="#f39200" stroke-width="3"/>
-                <circle cx="240" cy="145" r="10" fill="#888" stroke="#f39200" stroke-width="3"/>
-            </svg>
-        `,
-        'Zorro3D': (color) => `
-            <svg width="320" height="180" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="160" cy="170" rx="90" ry="12" fill="#222" opacity="0.18"/>
-                <!-- Plataforma zorro -->
-                <rect x="100" y="120" width="120" height="14" rx="6" fill="${color}" stroke="#f39200" stroke-width="4"/>
-                <!-- Ejes -->
-                <circle cx="120" cy="140" r="9" fill="#888" stroke="#f39200" stroke-width="3"/>
-                <circle cx="200" cy="140" r="9" fill="#888" stroke="#f39200" stroke-width="3"/>
-            </svg>
-        `
-};
-
-let simuladorState = {
-        tipo: 'Niñera',
-        color: '#003da5',
-        uso: 'Carga'
-};
-
-function updateSimulador3D() {
-        if (!simulador3d) return;
-        if (svgEl) simulador3d.removeChild(svgEl);
-        const svgString = carroceriaSVGs[simuladorState.tipo] ? carroceriaSVGs[simuladorState.tipo](simuladorState.color) : carroceriaSVGs['Especial'](simuladorState.color);
-        const temp = document.createElement('div');
-        temp.innerHTML = svgString;
-        svgEl = temp.firstElementChild;
-        svgEl.style.transition = 'transform 0.7s cubic-bezier(.4,2,.6,1)';
-        svgEl.style.transform = 'scale(1.04) rotate(' + (Math.sin(Date.now()/900)/30) + 'rad)';
-        simulador3d.appendChild(svgEl);
-        // Animación
-        requestAnimationFrame(updateSimulador3D);
-}
-
-const tipoCarroceria = document.getElementById('tipoCarroceria');
-const colorCarroceria = document.getElementById('colorCarroceria');
-const usoCarroceria = document.getElementById('usoCarroceria');
-const simularBtn = document.getElementById('simularBtn');
-const cotizarSimuladorBtn = document.getElementById('cotizarSimuladorBtn');
-const simuladorResultado = document.getElementById('simuladorResultado');
-
-if (tipoCarroceria && colorCarroceria && usoCarroceria) {
-    tipoCarroceria.addEventListener('change', e => {
-        simuladorState.tipo = e.target.value;
-        updateSimulador3D();
-    });
-    colorCarroceria.addEventListener('input', e => {
-        simuladorState.color = e.target.value;
-        updateSimulador3D();
-    });
-    usoCarroceria.addEventListener('change', e => {
-        simuladorState.uso = e.target.value;
-        updateSimulador3D();
-    });
-}
-
-if (simularBtn) {
-    simularBtn.addEventListener('click', () => {
-        simuladorResultado.innerHTML = `¡Así luciría tu <b>${simuladorState.tipo}</b> para <b>${simuladorState.uso}</b>!<br><span style='color:${simuladorState.color};font-weight:700;'>Color personalizado</span>`;
-    });
-}
-
-if (cotizarSimuladorBtn) {
-    cotizarSimuladorBtn.addEventListener('click', () => {
-        // Rellenar textarea de contacto con la info del simulador
-        const contactoMensaje = document.getElementById('contactoMensaje');
-        if (contactoMensaje) {
-            contactoMensaje.value = `Simulación de proyecto:\nTipo: ${simuladorState.tipo}\nColor: ${simuladorState.color}\nUso: ${simuladorState.uso}\n`;
-            contactoMensaje.focus();
-        }
-        // Scroll a contacto
-        const contactoSection = document.getElementById('contacto');
-        if (contactoSection) {
-            contactoSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-}
-
-// Inicializar simulador
-if (simulador3d) updateSimulador3D();
-// ===========================
 // MODAL GALERÍA
 // ===========================
 const galeriaItems = document.querySelectorAll('.galeria-item');
@@ -532,10 +559,18 @@ const galeriaModalClose = document.getElementById('galeriaModalClose');
 const modalImg = document.getElementById('modalImg');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
+const galleryQuoteButton = document.getElementById('galleryQuoteButton');
 
 
 let currentProduct = { title: '', desc: '' };
-galeriaItems.forEach(item => {
+let currentGalleryIndex = -1;
+
+function updateGalleryQuoteButton(title, desc) {
+    if (!galleryQuoteButton) return;
+    galleryQuoteButton.innerHTML = `<i class="fas fa-paper-plane"></i> ${translations[currentLanguage].gallery.ctaPrefix} <b>${title}</b><br><span style='font-size:14px; color:#fff;'>${desc}</span>`;
+}
+
+galeriaItems.forEach((item, index) => {
     item.addEventListener('click', () => {
         const img = item.getAttribute('data-img');
         const title = item.getAttribute('data-title');
@@ -543,10 +578,9 @@ galeriaItems.forEach(item => {
         modalImg.src = img;
         modalTitle.textContent = title;
         modalDesc.textContent = desc;
+        currentGalleryIndex = index;
         currentProduct = { title, desc };
-        // Actualizar texto del botón
-        const cotizarBtn = document.querySelector('.btn-cotizar-modal');
-        cotizarBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Quiero saber más sobre: <b>${title}</b><br><span style='font-size:14px; color:#fff;'>${desc}</span>`;
+        updateGalleryQuoteButton(title, desc);
         galeriaModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     });
@@ -559,16 +593,15 @@ galeriaModalClose.addEventListener('click', () => {
 });
 
 // Cerrar modal y pasar info al contacto al hacer clic en el botón de cotización
-const cotizarBtn = document.querySelector('.btn-cotizar-modal');
-if (cotizarBtn) {
-    cotizarBtn.addEventListener('click', (e) => {
+if (galleryQuoteButton) {
+    galleryQuoteButton.addEventListener('click', (e) => {
         galeriaModal.classList.remove('active');
         document.body.style.overflow = '';
         // Rellenar textarea de contacto con la info del producto
         setTimeout(() => {
             const contactoMensaje = document.getElementById('contactoMensaje');
             if (contactoMensaje && currentProduct.title) {
-                contactoMensaje.value = `Estoy interesado en el producto: ${currentProduct.title}\n${currentProduct.desc}\n`;
+                contactoMensaje.value = `${translations[currentLanguage].galleryInterest} ${currentProduct.title}\n${currentProduct.desc}\n`;
                 contactoMensaje.focus();
             }
             // Hacer scroll suave a la sección de contacto
@@ -586,49 +619,6 @@ galeriaModal.addEventListener('click', (e) => {
         document.body.style.overflow = '';
     }
 });
-// ===========================
-// ANIMACIÓN DE NÚMEROS
-// ===========================
-
-function animateNumbers() {
-    const stats = document.querySelectorAll('.stat-number[data-target]');
-    
-    stats.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-target'));
-        let current = 0;
-        const increment = target / 50;
-        
-        const updateNumber = () => {
-            current += increment;
-            if (current < target) {
-                stat.innerText = Math.floor(current);
-                requestAnimationFrame(updateNumber);
-            } else {
-                stat.innerText = target;
-            }
-        };
-        
-        updateNumber();
-    });
-}
-
-// Iniciar animación cuando hero está en vista
-const heroStats = document.querySelector('.hero-stats');
-if (heroStats) {
-    const observerOptions = {
-        threshold: 0.5
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-            animateNumbers();
-            observer.unobserve(heroStats);
-        }
-    }, observerOptions);
-    
-    observer.observe(heroStats);
-}
-
 // ===========================
 // CARRUSEL DE TESTIMONIOS
 // ===========================
@@ -881,31 +871,227 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
+const languageButtons = document.querySelectorAll('.language-option');
+
+function updateHotspotLabels(lang) {
+    translations[lang].hotspots.forEach((label, index) => {
+        if (mainHotspots[index]) {
+            mainHotspots[index].label = label;
+        }
+    });
+}
+
+function applyLanguage(lang) {
+    if (!translations[lang]) return;
+
+    currentLanguage = lang;
+    localStorage.setItem('tractocar-language', lang);
+
+    const t = translations[lang];
+    const metaDescription = document.getElementById('metaDescription');
+    const planetKicker = document.querySelector('.planet-kicker');
+    const ventajasTitle = document.querySelector('.ventajas h2');
+    const ventajaCards = document.querySelectorAll('.ventaja-card');
+    const serviciosTitle = document.querySelector('.servicios h2');
+    const servicioCards = document.querySelectorAll('.servicio-card');
+    const galeriaTitle = document.querySelector('.galeria h2');
+    const nosotrosTitle = document.querySelector('.nosotros h2');
+    const nosotrosHeading = document.querySelector('.nosotros-text h3');
+    const nosotrosBody = document.querySelector('.nosotros-text > p');
+    const nosotrosBullets = document.querySelectorAll('.nosotros-text li');
+    const nosotrosImg = document.querySelector('.nosotros-img img');
+    const clientesTitle = document.querySelector('.clientes h2');
+    const clientesIntro = document.querySelector('.clientes-intro');
+    const clienteLogos = document.querySelectorAll('.cliente-card img');
+    const testimoniosTitle = document.querySelector('.testimonios h2');
+    const testimonialCards = document.querySelectorAll('.testimonio-card');
+    const ubicacionTitle = document.querySelector('.ubicacion-info h2');
+    const ubicacionItems = document.querySelectorAll('.ubicacion .info-item');
+    const contactoTitle = document.querySelector('.contacto h2');
+    const contactoIntro = document.querySelector('.contacto > .container > p');
+    const footerSections = document.querySelectorAll('.footer-section');
+    const footerQuickLinks = document.querySelectorAll('.footer-section ul a');
+    const footerBottom = document.querySelector('.footer-bottom p');
+    const planetCanvasEl = document.getElementById('planetCanvas');
+    const contactSubmitButton = document.getElementById('contactSubmitButton');
+    const galleryItemsContent = t.gallery.items;
+
+    document.documentElement.lang = lang;
+    document.title = t.metaTitle;
+    if (metaDescription) metaDescription.content = t.metaDescription;
+    if (menuToggle) menuToggle.setAttribute('aria-label', t.menuAria);
+    const languageSwitch = document.getElementById('languageSwitch');
+    if (languageSwitch) languageSwitch.setAttribute('aria-label', t.switchAria);
+    if (planetCanvasEl) planetCanvasEl.setAttribute('aria-label', t.planetCanvasLabel);
+
+    languageButtons.forEach(button => {
+        button.classList.toggle('active', button.dataset.lang === lang);
+    });
+
+    document.querySelectorAll('.nav-link').forEach((link, index) => {
+        if (t.nav[index]) link.textContent = t.nav[index];
+    });
+
+    if (planetKicker) planetKicker.textContent = t.planetKicker;
+
+    if (ventajasTitle) ventajasTitle.textContent = t.advantages.title;
+    ventajaCards.forEach((card, index) => {
+        const content = t.advantages.cards[index];
+        if (!content) return;
+        const heading = card.querySelector('h3');
+        const paragraph = card.querySelector('p');
+        const badge = card.querySelector('.ventaja-badge');
+        if (heading) heading.textContent = content[0];
+        if (paragraph) paragraph.textContent = content[1];
+        if (badge) badge.textContent = content[2];
+    });
+
+    if (serviciosTitle) serviciosTitle.textContent = t.services.title;
+    servicioCards.forEach((card, index) => {
+        const content = t.services.cards[index];
+        if (!content) return;
+        const heading = card.querySelector('h3');
+        const paragraph = card.querySelector('p');
+        if (heading) heading.textContent = content[0];
+        if (paragraph) paragraph.textContent = content[1];
+    });
+
+    if (galeriaTitle) galeriaTitle.textContent = t.gallery.title;
+    galeriaItems.forEach((item, index) => {
+        const content = galleryItemsContent[index];
+        if (!content) return;
+        item.setAttribute('data-title', content[0]);
+        item.setAttribute('data-desc', content[1]);
+        const image = item.querySelector('img');
+        const overlayTitle = item.querySelector('.galeria-overlay h3');
+        const overlayDesc = item.querySelector('.galeria-overlay p');
+        if (image) image.alt = content[2];
+        if (overlayTitle) overlayTitle.textContent = content[0];
+        if (overlayDesc) overlayDesc.textContent = content[1];
+    });
+
+    if (galleryQuoteButton) {
+        galleryQuoteButton.innerHTML = `<i class="fas fa-paper-plane"></i> ${t.gallery.button}`;
+    }
+
+    if (nosotrosTitle) nosotrosTitle.textContent = t.about.title;
+    if (nosotrosHeading) nosotrosHeading.textContent = t.about.heading;
+    if (nosotrosBody) nosotrosBody.textContent = t.about.body;
+    nosotrosBullets.forEach((item, index) => {
+        const textNode = item.childNodes[item.childNodes.length - 1];
+        if (textNode && t.about.bullets[index]) {
+            textNode.textContent = ` ${t.about.bullets[index]}`;
+        }
+    });
+    if (nosotrosImg) nosotrosImg.alt = t.about.imageAlt;
+
+    if (clientesTitle) clientesTitle.textContent = t.clients.title;
+    if (clientesIntro) clientesIntro.textContent = t.clients.intro;
+    clienteLogos.forEach((logo, index) => {
+        logo.alt = t.clients.logoAlt[index % t.clients.logoAlt.length];
+    });
+
+    if (testimoniosTitle) testimoniosTitle.textContent = t.testimonials.title;
+    testimonialCards.forEach((card, index) => {
+        const content = t.testimonials.items[index];
+        if (!content) return;
+        const text = card.querySelector('.testimonio-text');
+        const author = card.querySelector('.testimonio-author h4');
+        const role = card.querySelector('.testimonio-author p');
+        if (text) text.textContent = `"${content[0]}"`;
+        if (author) author.textContent = content[1];
+        if (role) role.textContent = content[2];
+    });
+
+    if (ubicacionTitle) ubicacionTitle.textContent = t.location.title;
+    ubicacionItems.forEach((item, index) => {
+        const heading = item.querySelector('h3');
+        const detail = item.querySelector('p');
+        if (heading && t.location.headings[index]) heading.textContent = t.location.headings[index];
+        if (detail && t.location.details[index]) detail.innerHTML = t.location.details[index];
+    });
+
+    if (contactoTitle) contactoTitle.textContent = t.contact.title;
+    if (contactoIntro) contactoIntro.textContent = t.contact.intro;
+    if (contactoNombre) contactoNombre.placeholder = t.contact.placeholders[0];
+    if (contactoEmail) contactoEmail.placeholder = t.contact.placeholders[1];
+    if (contactoTelefono) contactoTelefono.placeholder = t.contact.placeholders[2];
+    if (contactoEmpresa) contactoEmpresa.placeholder = t.contact.placeholders[3];
+    if (contactoMensaje) contactoMensaje.placeholder = t.contact.placeholders[4];
+    if (contactSubmitButton) contactSubmitButton.textContent = t.contact.button;
+
+    if (footerSections[0]) {
+        const title = footerSections[0].querySelector('h3');
+        const body = footerSections[0].querySelector('p');
+        if (title) title.textContent = t.footer.title;
+        if (body) body.textContent = t.footer.body;
+    }
+    if (footerSections[1]) {
+        const title = footerSections[1].querySelector('h3');
+        if (title) title.textContent = t.footer.quickLinksTitle;
+    }
+    footerQuickLinks.forEach((link, index) => {
+        if (t.footer.quickLinks[index]) link.textContent = t.footer.quickLinks[index];
+    });
+    if (footerSections[2]) {
+        const title = footerSections[2].querySelector('h3');
+        if (title) title.textContent = t.footer.socialTitle;
+    }
+    if (footerBottom) footerBottom.textContent = t.footer.bottom;
+
+    updateHotspotLabels(lang);
+    if (planetHotspotsDiv && planetHotspotsDiv.childElementCount) {
+        updateHotspots3D();
+    }
+
+    if (currentGalleryIndex >= 0 && galleryItemsContent[currentGalleryIndex] && galeriaModal.classList.contains('active')) {
+        const currentItem = galleryItemsContent[currentGalleryIndex];
+        modalTitle.textContent = currentItem[0];
+        modalDesc.textContent = currentItem[1];
+        modalImg.alt = currentItem[2];
+        currentProduct = { title: currentItem[0], desc: currentItem[1] };
+        updateGalleryQuoteButton(currentItem[0], currentItem[1]);
+    }
+}
+
+languageButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        applyLanguage(button.dataset.lang);
+    });
+});
+
+applyLanguage(currentLanguage);
+
 // ===========================
 // FORMULARIO DE CONTACTO
 // ===========================
 
 const contactoForm = document.getElementById('contactoForm');
+const contactoNombre = document.getElementById('contactoNombre');
+const contactoEmail = document.getElementById('contactoEmail');
+const contactoTelefono = document.getElementById('contactoTelefono');
+const contactoEmpresa = document.getElementById('contactoEmpresa');
+const contactoMensaje = document.getElementById('contactoMensaje');
 
 if (contactoForm) {
     contactoForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
         const data = {
-            nombre: contactoForm.querySelector('input[placeholder="Tu Nombre"]').value,
-            email: contactoForm.querySelector('input[placeholder="Tu Email"]').value,
-            telefono: contactoForm.querySelector('input[placeholder="Tu Teléfono"]').value,
-            empresa: contactoForm.querySelector('input[placeholder="Empresa"]').value,
-            proyecto: contactoForm.querySelector('textarea[placeholder="Describe tu proyecto"]').value,
+            nombre: contactoNombre ? contactoNombre.value : '',
+            email: contactoEmail ? contactoEmail.value : '',
+            telefono: contactoTelefono ? contactoTelefono.value : '',
+            empresa: contactoEmpresa ? contactoEmpresa.value : '',
+            proyecto: contactoMensaje ? contactoMensaje.value : '',
         };
         
         if (!data.nombre || !data.email || !data.telefono || !data.proyecto) {
-            alert('Por favor completa todos los campos requeridos');
+            alert(translations[currentLanguage].contact.required);
             return;
         }
         
-        console.log('Datos del formulario:', data);
-        alert('¡Gracias! Tu mensaje ha sido enviado. Nos pondremos en contacto pronto.');
+        console.log(translations[currentLanguage].formLogLabel, data);
+        alert(translations[currentLanguage].contact.success);
         contactoForm.reset();
     });
 }
