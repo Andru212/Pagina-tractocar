@@ -2,6 +2,10 @@
 
 // PLANETA/ÁTOMO 3D CON HOTSPOTS GIRATORIOS Y PROFUNDIDAD
 // Responsive: calcular tamaño basado en el contenedor real
+function isMobilePlanetLayout() {
+    return window.innerWidth <= 768;
+}
+
 function getPlanetSize() {
     const container = document.querySelector('.planet-container');
     if (container) {
@@ -33,7 +37,30 @@ let planetCenter = { x: planetSize/2, y: planetSize/2 };
 let planetRadius = planetSize/2.15;
 let planetAngleY = 0.0;
 let planetAngleX = 0.25;
+let planetAutoSpinY = 0.0;
+let planetUserSpinY = 0.0;
+let planetAutoTiltX = 0.25;
+let planetUserTiltX = 0.0;
 let dragging = false, lastX = 0, lastY = 0;
+let touchDragging = false;
+let touchIntentLocked = false;
+let touchRotationMode = false;
+let touchStartX = 0;
+let touchStartY = 0;
+
+function syncPlanetAngles() {
+    planetAngleY = planetAutoSpinY + planetUserSpinY;
+    planetAngleX = planetAutoTiltX + planetUserTiltX;
+}
+
+function wrapAngle(angle) {
+    const fullTurn = Math.PI * 2;
+    return ((angle % fullTurn) + fullTurn) % fullTurn;
+}
+
+function clampTilt(angle) {
+    return Math.max(-1.05, Math.min(1.05, angle));
+}
 
 function resizePlanet() {
     planetSize = getPlanetSize();
@@ -91,6 +118,7 @@ function getHotspotSphereCoords(idx, total, angleY, angleX) {
 function drawPlanet3D() {
     if (!ctxPlanet) return;
     ctxPlanet.clearRect(0, 0, planetCanvas.width, planetCanvas.height);
+    const isMobile = isMobilePlanetLayout();
     // Sombra
     ctxPlanet.save();
     ctxPlanet.globalAlpha = 0.18;
@@ -102,16 +130,20 @@ function drawPlanet3D() {
     // Líneas de conexión tipo neurona a los principales
     ctxPlanet.save();
     const now = performance.now() * 0.001;
-        for (let i = 0; i < mainHotspots.length; i++) {
-            const { x, y, z } = getHotspotSphereCoords(i, planetHotspotsData.length, planetAngleY, planetAngleX);
-            const px = planetCenter.x + x * planetRadius * 1.05;
-            const py = planetCenter.y + y * planetRadius * 1.05;
-            // Curva de control para efecto "neurona"
-            const cx = planetCenter.x + (px - planetCenter.x) * 0.45 + Math.sin(now*2 + i)*18;
-            const cy = planetCenter.y + (py - planetCenter.y) * 0.45 + Math.cos(now*2 + i)*18;
-
-
-        }
+    for (let i = 0; i < mainHotspots.length; i++) {
+        const { x, y, z } = getHotspotSphereCoords(i, planetHotspotsData.length, planetAngleY, planetAngleX);
+        const px = planetCenter.x + x * planetRadius * 1.05;
+        const py = planetCenter.y + y * planetRadius * 1.05;
+        const cx = planetCenter.x + (px - planetCenter.x) * 0.45 + Math.sin(now * 2 + i) * (isMobile ? 10 : 18);
+        const cy = planetCenter.y + (py - planetCenter.y) * 0.45 + Math.cos(now * 2 + i) * (isMobile ? 10 : 18);
+        const opacity = Math.max(0.18, 0.5 + z * 0.22);
+        ctxPlanet.beginPath();
+        ctxPlanet.moveTo(planetCenter.x, planetCenter.y);
+        ctxPlanet.quadraticCurveTo(cx, cy, px, py);
+        ctxPlanet.strokeStyle = `rgba(165, 241, 255, ${opacity})`;
+        ctxPlanet.lineWidth = isMobile ? 1.5 : 2.4;
+        ctxPlanet.stroke();
+    }
     ctxPlanet.restore();
     // Esfera base
     ctxPlanet.save();
@@ -154,6 +186,7 @@ function drawPlanet3D() {
 
 function updateHotspots3D() {
     if (!planetHotspotsDiv) return;
+    const isMobile = isMobilePlanetLayout();
     // Crear los hotspots si no existen
     if (planetHotspotsDiv.childElementCount !== planetHotspotsData.length) {
         planetHotspotsDiv.innerHTML = '';
@@ -188,26 +221,56 @@ function updateHotspots3D() {
             el.style.left = px + 'px';
             el.style.top = py + 'px';
             if (h.main) {
-                el.style.background = 'radial-gradient(circle at 60% 40%, rgba(0,255,255,0.22) 0%, rgba(0,61,165,0.18) 60%, rgba(0,61,165,0.08) 100%)';
-                el.style.border = '2.5px solid rgba(0,255,255,0.85)';
-                el.style.boxShadow = '0 0 32px 8px rgba(0,255,255,0.25), 0 0 8px 2px #00eaff';
-                el.style.color = '#fff';
-                el.style.fontWeight = '700';
-                el.style.backdropFilter = 'blur(2.5px)';
-                el.style.opacity = z > 0.1 ? '1' : '0.45';
-                el.style.transition = 'background 0.3s, box-shadow 0.3s, opacity 0.3s';
+                if (isMobile) {
+                    el.textContent = h.label;
+                    el.style.width = 'auto';
+                    el.style.height = 'auto';
+                    el.style.padding = '7px 12px';
+                    el.style.borderRadius = '18px';
+                    el.style.background = 'radial-gradient(circle at 60% 40%, rgba(0,255,255,0.22) 0%, rgba(0,61,165,0.18) 60%, rgba(0,61,165,0.08) 100%)';
+                    el.style.border = '2px solid rgba(0,255,255,0.78)';
+                    el.style.boxShadow = '0 0 20px 4px rgba(0,255,255,0.22), 0 0 8px 1px #00eaff';
+                    el.style.color = '#fff';
+                    el.style.fontWeight = '700';
+                    el.style.backdropFilter = 'blur(2px)';
+                    el.style.opacity = z > -0.12 ? '1' : '0.18';
+                    el.style.transition = 'background 0.3s, box-shadow 0.3s, opacity 0.3s';
+                } else {
+                    el.textContent = h.label;
+                    el.style.minWidth = '70px';
+                    el.style.minHeight = '36px';
+                    el.style.width = 'auto';
+                    el.style.height = 'auto';
+                    el.style.padding = '4px 14px';
+                    el.style.borderRadius = '2em';
+                    el.style.background = 'radial-gradient(circle at 60% 40%, rgba(0,255,255,0.22) 0%, rgba(0,61,165,0.18) 60%, rgba(0,61,165,0.08) 100%)';
+                    el.style.border = '2.5px solid rgba(0,255,255,0.85)';
+                    el.style.boxShadow = '0 0 32px 8px rgba(0,255,255,0.25), 0 0 8px 2px #00eaff';
+                    el.style.color = '#fff';
+                    el.style.fontWeight = '700';
+                    el.style.backdropFilter = 'blur(2.5px)';
+                    el.style.opacity = z > 0.1 ? '1' : '0.45';
+                    el.style.transition = 'background 0.3s, box-shadow 0.3s, opacity 0.3s';
+                }
             } else {
+                el.textContent = '';
+                el.style.minWidth = isMobile ? '10px' : '18px';
+                el.style.minHeight = isMobile ? '10px' : '18px';
+                el.style.width = isMobile ? '10px' : '18px';
+                el.style.height = isMobile ? '10px' : '18px';
+                el.style.padding = '0';
+                el.style.borderRadius = '50%';
                 el.style.background = 'rgba(255,255,255,0.13)';
                 el.style.border = 'none';
                 el.style.boxShadow = 'none';
                 el.style.color = '#fff';
                 el.style.fontWeight = '400';
                 el.style.backdropFilter = 'none';
-                el.style.opacity = z > 0.1 ? '1' : '0.18';
+                el.style.opacity = z > 0.1 ? (isMobile ? '0.72' : '1') : '0.18';
                 el.style.transition = 'background 0.3s, box-shadow 0.3s, opacity 0.3s';
             }
             // Solo mostrar si está al frente
-            if (z > 0.1) {
+            if (z > 0.1 || (isMobile && h.main && z > -0.12)) {
                 el.setAttribute('data-dimmed','false');
                 el.style.zIndex = 10 + Math.floor(z*10);
                 el.style.pointerEvents = h.section ? 'auto' : 'none';
@@ -222,9 +285,10 @@ function updateHotspots3D() {
 
 function animatePlanet3D() {
     const t = performance.now() * 0.001;
-    // Rotación continua en Y + oscilación suave en X para que todos los hotspots sean visibles
-    planetAngleY += 0.006;
-    planetAngleX = 0.4 * Math.sin(t * 0.15); // oscila arriba/abajo lentamente
+    const isMobile = isMobilePlanetLayout();
+    planetAutoSpinY = wrapAngle(planetAutoSpinY + (isMobile ? 0.0035 : 0.006));
+    planetAutoTiltX = (isMobile ? 0.24 : 0.4) * Math.sin(t * (isMobile ? 0.22 : 0.15));
+    syncPlanetAngles();
     drawPlanet3D();
     updateHotspots3D();
     requestAnimationFrame(animatePlanet3D);
@@ -237,25 +301,55 @@ if (planetCanvas) {
     planetCanvas.addEventListener('mousedown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; });
     window.addEventListener('mousemove', e => {
         if (dragging) {
-            planetAngleY += (e.clientX - lastX) * 0.012;
-            planetAngleX += (e.clientY - lastY) * 0.012;
+            planetUserSpinY = wrapAngle(planetUserSpinY + (e.clientX - lastX) * 0.012);
+            planetUserTiltX = clampTilt(planetUserTiltX + (e.clientY - lastY) * 0.012);
+            syncPlanetAngles();
             lastX = e.clientX; lastY = e.clientY;
         }
     });
     window.addEventListener('mouseup', () => { dragging = false; });
-    // Touch: solo permitir drag si es un gesto horizontal claro, sino dejar scroll
-    // En móvil deshabilitamos el drag del planeta para no bloquear el scroll
-    if (window.innerWidth > 768) {
-        planetCanvas.addEventListener('touchstart', e => { dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }, { passive: true });
-        window.addEventListener('touchmove', e => {
-            if (dragging && e.touches.length === 1) {
-                planetAngleY += (e.touches[0].clientX - lastX) * 0.012;
-                planetAngleX += (e.touches[0].clientY - lastY) * 0.012;
-                lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
-            }
-        }, { passive: true });
-        window.addEventListener('touchend', () => { dragging = false; }, { passive: true });
-    }
+    planetCanvas.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) return;
+        touchDragging = true;
+        touchIntentLocked = false;
+        touchRotationMode = !isMobilePlanetLayout();
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        lastX = e.touches[0].clientX;
+        lastY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', e => {
+        if (!touchDragging || e.touches.length !== 1) return;
+        const touchX = e.touches[0].clientX;
+        const touchY = e.touches[0].clientY;
+
+        if (isMobilePlanetLayout() && !touchIntentLocked) {
+            const totalDx = touchX - touchStartX;
+            const totalDy = touchY - touchStartY;
+            if (Math.abs(totalDx) + Math.abs(totalDy) < 10) return;
+            touchIntentLocked = true;
+            touchRotationMode = Math.abs(totalDx) > Math.abs(totalDy) + 4;
+        }
+
+        if (!touchRotationMode) return;
+
+        if (isMobilePlanetLayout()) {
+            e.preventDefault();
+        }
+
+        planetUserSpinY = wrapAngle(planetUserSpinY + (touchX - lastX) * 0.012);
+        planetUserTiltX = clampTilt(planetUserTiltX + (touchY - lastY) * 0.012);
+        syncPlanetAngles();
+        lastX = touchX;
+        lastY = touchY;
+    }, { passive: false });
+
+    window.addEventListener('touchend', () => {
+        touchDragging = false;
+        touchIntentLocked = false;
+        touchRotationMode = false;
+    }, { passive: true });
 }
 // ===========================
 // SIMULADOR INTERACTIVO 3D
@@ -547,37 +641,57 @@ const testimonioNextBtn = document.getElementById('testimonioNextBtn');
 let testimonioIndex = 0;
 let testimonioAutoplay;
 
+function isMobileTestimonials() {
+    return window.innerWidth <= 768;
+}
+
 function updateTestimonios() {
+    if (!testimoniosTrack) return;
+    if (isMobileTestimonials()) {
+        testimoniosTrack.style.transform = 'none';
+        return;
+    }
     const offset = -testimonioIndex * 100;
     testimoniosTrack.style.transform = `translateX(${offset}%)`;
 }
 
 function nextTestimonio() {
+    if (isMobileTestimonials()) return;
     testimonioIndex = (testimonioIndex + 1) % testimonioSlides.length;
     updateTestimonios();
     resetTestimonioAutoplay();
 }
 
 function prevTestimonio() {
+    if (isMobileTestimonials()) return;
     testimonioIndex = (testimonioIndex - 1 + testimonioSlides.length) % testimonioSlides.length;
     updateTestimonios();
     resetTestimonioAutoplay();
 }
 
 function startTestimonioAutoplay() {
+    clearInterval(testimonioAutoplay);
+    if (isMobileTestimonials()) return;
     testimonioAutoplay = setInterval(nextTestimonio, 5000);
 }
 
 function resetTestimonioAutoplay() {
     clearInterval(testimonioAutoplay);
+    if (isMobileTestimonials()) return;
     startTestimonioAutoplay();
 }
 
 if (testimonioPrevBtn && testimonioNextBtn) {
     testimonioPrevBtn.addEventListener('click', prevTestimonio);
     testimonioNextBtn.addEventListener('click', nextTestimonio);
+    updateTestimonios();
     startTestimonioAutoplay();
 }
+
+window.addEventListener('resize', () => {
+    updateTestimonios();
+    startTestimonioAutoplay();
+});
 
 // ===========================
 // CARRUSEL DE CLIENTES MEJORADO
@@ -813,25 +927,3 @@ window.addEventListener('scroll', () => {
 
 console.log('🚀 Script cargado correctamente - Versión Premium');
 
-// ===========================
-// BOTÓN FLOTANTE VOLVER A NEURONA (móvil)
-// ===========================
-const btnBackPlanet = document.getElementById('btnBackPlanet');
-const heroSection = document.getElementById('inicio');
-
-if (btnBackPlanet && heroSection) {
-    // Mostrar/ocultar botón según scroll
-    window.addEventListener('scroll', () => {
-        const heroBottom = heroSection.getBoundingClientRect().bottom;
-        if (heroBottom < 0) {
-            btnBackPlanet.classList.add('visible');
-        } else {
-            btnBackPlanet.classList.remove('visible');
-        }
-    }, { passive: true });
-
-    // Al hacer clic, volver suavemente al inicio
-    btnBackPlanet.addEventListener('click', () => {
-        heroSection.scrollIntoView({ behavior: 'smooth' });
-    });
-}
